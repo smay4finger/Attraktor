@@ -1,3 +1,6 @@
+# build directory Arduino-Makefile
+build-*/
+
 # Compiled Object files
 *.slo
 *.lo
