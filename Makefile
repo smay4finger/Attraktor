@@ -1,2 +1,4 @@
-upload: Attraktor.ino
-	arduino --upload --board arduino:sam:due $<
+verify upload: Attraktor.ino
+	arduino --$@ --board arduino:sam:due $<
+
+.PHONY: upload verify
