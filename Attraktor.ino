@@ -18,6 +18,9 @@ float y = 20.0;
 float z = 25.0;
 
 void setup() {
+#if defined(ARDUINO_SAM_DUE)
+    analogWriteResolution(12);
+#elif defined(ARDUINO_AVR_UNO)
     SPI.begin();
 
     pinMode(CS, OUTPUT);
@@ -25,11 +28,17 @@ void setup() {
 
     pinMode(LDAC, OUTPUT);
     digitalWrite(LDAC, HIGH);
+#else
+#error "unsupported"
+#endif
 }
 
 void writeDAC(uint16_t channelA, uint16_t channelB)
 {
-
+#if defined(ARDUINO_SAM_DUE)
+    analogWrite(DAC0, map(0, (1<<12), 0, UINT16_MAX, channelA));
+    analogWrite(DAC1, map(0, (1<<12), 0, UINT16_MAX, channelB));
+#elif defined(ARDUINO_AVR_UNO)
     channelA = 0x7000 | channelA >> 4;
     channelB = 0xF000 | channelB >> 4;
 
@@ -50,6 +59,9 @@ void writeDAC(uint16_t channelA, uint16_t channelB)
 
     digitalWrite(LDAC, LOW);
     digitalWrite(LDAC, HIGH);
+#else
+#error "unsupported"
+#endif
 }
 
 void loop() {

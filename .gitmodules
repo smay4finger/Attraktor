@@ -1,3 +1,0 @@
-[submodule "lib/Arduino-Makefile"]
-	path = lib/Arduino-Makefile
-	url = https://github.com/sudar/Arduino-Makefile
